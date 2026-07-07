@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Analytics · SAGE{% endblock %}
+{% block page_title %}Analytics{% endblock %}
+{% block page_subtitle %}Trends, safety scoring and gas savings estimates{% endblock %}
+
+{% block content %}
+
+<div class="row g-3 mb-3">
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="sage-card-icon icon-green mb-2"><i class="fa-solid fa-shield-halved"></i></div>
+      <div class="sage-card-title">Safety Score</div>
+      <div class="sage-card-value" id="safetyScoreCard">—</div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="sage-card-icon icon-red mb-2"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <div class="sage-card-title">Emergencies (Gas / Overflow)</div>
+      <div class="sage-card-value" id="emergencyCard" style="font-size:1.3rem;">—</div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="sage-card-icon icon-orange mb-2"><i class="fa-solid fa-temperature-half"></i></div>
+      <div class="sage-card-title">Avg. Kitchen Temperature</div>
+      <div class="sage-card-value" id="avgTempCard">—</div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="sage-card-icon icon-blue mb-2"><i class="fa-solid fa-clock-rotate-left"></i></div>
+      <div class="sage-card-title">Avg. Cooking Time / Day</div>
+      <div class="sage-card-value" id="avgCookCard" style="font-size:1.3rem;">—</div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-lg-8">
+    <div class="sage-card">
+      <div class="sage-card-title mb-2">Temperature Over Time</div>
+      <canvas id="tempChart" height="90"></canvas>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="sage-card">
+      <div class="sage-card-title mb-2">Estimated Gas Saved</div>
+      <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+        <span class="text-muted small">Daily</span><strong id="gasDaily">—</strong>
+      </div>
+      <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+        <span class="text-muted small">Weekly</span><strong id="gasWeekly">—</strong>
+      </div>
+      <div class="d-flex justify-content-between align-items-center py-2">
+        <span class="text-muted small">Monthly</span><strong id="gasMonthly">—</strong>
+      </div>
+      <p class="text-muted small mt-3 mb-0" id="gasNote"></p>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-lg-6">
+    <div class="sage-card">
+      <div class="sage-card-title mb-2">Gas Concentration Over Time</div>
+      <canvas id="gasChart" height="110"></canvas>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="sage-card">
+      <div class="sage-card-title mb-2">Motion Detection Timeline</div>
+      <canvas id="motionChart" height="110"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-6">
+    <div class="sage-card">
+      <div class="sage-card-title mb-2">Daily Risk Score</div>
+      <canvas id="riskChart" height="110"></canvas>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="sage-card">
+      <div class="sage-card-title mb-2">Weekly Alerts</div>
+      <canvas id="weeklyAlertsChart" height="110"></canvas>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+{% endblock %}

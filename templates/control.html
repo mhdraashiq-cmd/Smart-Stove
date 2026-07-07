@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Manual Control · SAGE{% endblock %}
+{% block page_title %}Manual Control{% endblock %}
+{% block page_subtitle %}Send remote commands directly to the ESP32{% endblock %}
+
+{% block content %}
+
+<div class="row g-3">
+  <div class="col-6 col-lg-4">
+    <button class="control-btn safe" data-command="gas_on" data-confirm="false">
+      <i class="fa-solid fa-fire-flame-simple"></i>
+      <div class="cb-label">Turn Gas ON</div>
+    </button>
+  </div>
+  <div class="col-6 col-lg-4">
+    <button class="control-btn warn" data-command="gas_off" data-confirm="true" data-confirm-text="This will close the gas valve immediately. Continue?">
+      <i class="fa-solid fa-ban"></i>
+      <div class="cb-label">Turn Gas OFF</div>
+    </button>
+  </div>
+  <div class="col-6 col-lg-4">
+    <button class="control-btn neutral" data-command="restart_esp32" data-confirm="true" data-confirm-text="Restart the ESP32 controller now?">
+      <i class="fa-solid fa-arrows-rotate"></i>
+      <div class="cb-label">Restart ESP32</div>
+    </button>
+  </div>
+  <div class="col-6 col-lg-4">
+    <button class="control-btn neutral" data-command="alarm_off" data-confirm="false">
+      <i class="fa-solid fa-volume-xmark"></i>
+      <div class="cb-label">Alarm OFF</div>
+    </button>
+  </div>
+  <div class="col-6 col-lg-4">
+    <button class="control-btn danger" data-command="emergency_shutdown" data-confirm="true" data-confirm-text="This performs a full emergency shutdown: gas valve closes and alarm activates. Continue?">
+      <i class="fa-solid fa-power-off"></i>
+      <div class="cb-label">Emergency Shutdown</div>
+    </button>
+  </div>
+  <div class="col-6 col-lg-4">
+    <button class="control-btn warn" data-command="test_alarm" data-confirm="false">
+      <i class="fa-solid fa-bell"></i>
+      <div class="cb-label">Test Alarm</div>
+    </button>
+  </div>
+</div>
+
+<div class="sage-card mt-3">
+  <div class="sage-card-title mb-2">Command Log</div>
+  <div id="commandLog" class="text-muted small">No commands sent yet this session.</div>
+</div>
+
+<!-- Confirmation modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Action</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="confirmModalText">Are you sure?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmModalYes">Yes, proceed</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/control.js') }}"></script>
+{% endblock %}

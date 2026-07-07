@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Settings · SAGE{% endblock %}
+{% block page_title %}Settings{% endblock %}
+{% block page_subtitle %}Configure thresholds, notifications and units{% endblock %}
+
+{% block content %}
+
+<div class="row g-3">
+  <div class="col-lg-6">
+    <div class="sage-card">
+      <div class="sage-card-title mb-3">Thresholds</div>
+
+      <label class="form-label small text-muted">Gas Threshold (ppm)</label>
+      <input type="number" class="form-control mb-3" id="gasThreshold">
+
+      <label class="form-label small text-muted">Temperature Threshold (°C)</label>
+      <input type="number" class="form-control mb-3" id="temperatureThreshold">
+
+      <label class="form-label small text-muted">Risk Threshold (Emergency at)</label>
+      <input type="number" class="form-control mb-3" id="riskThreshold">
+
+      <label class="form-label small text-muted">Auto Shutoff Timeout (minutes)</label>
+      <input type="number" class="form-control" id="autoShutoffTimeout">
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="sage-card mb-3">
+      <div class="sage-card-title mb-3">Notification Preferences</div>
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" id="notifyTelegram">
+        <label class="form-check-label" for="notifyTelegram">Telegram</label>
+      </div>
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" id="notifyEmail">
+        <label class="form-check-label" for="notifyEmail">Email</label>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="notifyBrowser">
+        <label class="form-check-label" for="notifyBrowser">Browser Notifications</label>
+      </div>
+    </div>
+
+    <div class="sage-card">
+      <div class="sage-card-title mb-3">Units</div>
+      <div class="btn-group w-100" role="group">
+        <input type="radio" class="btn-check" name="units" id="unitC" value="C" autocomplete="off">
+        <label class="btn btn-outline-primary" for="unitC">°C</label>
+        <input type="radio" class="btn-check" name="units" id="unitF" value="F" autocomplete="off">
+        <label class="btn btn-outline-primary" for="unitF">°F</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-end mt-3">
+  <button class="btn btn-sage-primary px-4" id="saveSettingsBtn"><i class="fa-solid fa-floppy-disk me-2"></i>Save Settings</button>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Device Status · SAGE{% endblock %}
+{% block page_title %}Device Status{% endblock %}
+{% block page_subtitle %}Hardware health for every connected sensor and actuator{% endblock %}
+
+{% block content %}
+
+<div class="row g-3" id="deviceGrid">
+  <!-- populated by devices.js -->
+</div>
+
+<div class="sage-card mt-3">
+  <div class="d-flex flex-wrap justify-content-between align-items-center">
+    <div>
+      <div class="sage-card-title mb-1">ESP32 Device ID</div>
+      <div class="fw-semibold" id="deviceIdText">—</div>
+    </div>
+    <div>
+      <div class="sage-card-title mb-1">Last Communication</div>
+      <div class="fw-semibold" id="lastCommText">—</div>
+    </div>
+    <div>
+      <div class="sage-card-title mb-1">Current Risk Level</div>
+      <div class="fw-semibold" id="currentRiskText">—</div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/devices.js') }}"></script>
+{% endblock %}

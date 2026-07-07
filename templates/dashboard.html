@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · SAGE{% endblock %}
+{% block page_title %}Live Dashboard{% endblock %}
+{% block page_subtitle %}Real-time overview of your kitchen safety system{% endblock %}
+
+{% block content %}
+
+<div id="emergencyBanner" class="emergency-banner d-none">
+  <i class="fa-solid fa-triangle-exclamation fa-lg"></i>
+  <div>
+    <strong>Emergency in progress</strong>
+    <div class="small" id="bannerReason">Gas leak detected — valve closed automatically.</div>
+  </div>
+</div>
+
+<div class="row g-3 mb-3">
+  <!-- Kitchen Status -->
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <div class="sage-card-icon icon-blue"><i class="fa-solid fa-house-chimney"></i></div>
+        <span class="status-badge status-safe" id="kitchenStatusBadge">SAFE</span>
+      </div>
+      <div class="sage-card-title">Kitchen Status</div>
+      <div class="sage-card-value" id="kitchenStatusText">—</div>
+    </div>
+  </div>
+
+  <!-- Temperature -->
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="sage-card-icon icon-orange mb-2"><i class="fa-solid fa-temperature-three-quarters"></i></div>
+      <div class="sage-card-title">Temperature</div>
+      <div class="sage-card-value"><span id="tempValue" class="skeleton">41°C</span></div>
+    </div>
+  </div>
+
+  <!-- Gas Level -->
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="sage-card-icon icon-red mb-2"><i class="fa-solid fa-smog"></i></div>
+      <div class="sage-card-title">Gas Level</div>
+      <div class="sage-card-value" id="gasValue" style="font-size:1.3rem;"><span class="skeleton">Normal</span></div>
+    </div>
+  </div>
+
+  <!-- Flame Status -->
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="sage-card-icon icon-orange mb-2 pulse-ring"><i class="fa-solid fa-fire"></i></div>
+      <div class="sage-card-title">Flame Status</div>
+      <div class="sage-card-value" id="flameValue" style="font-size:1.3rem;"><span class="skeleton">OFF</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mb-3">
+  <!-- Human presence -->
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="sage-card-icon icon-blue mb-2"><i class="fa-solid fa-person"></i></div>
+      <div class="sage-card-title">Human Presence</div>
+      <div class="sage-card-value" id="motionValue" style="font-size:1.3rem;"><span class="skeleton">Detected</span></div>
+    </div>
+  </div>
+
+  <!-- Gas Valve -->
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="sage-card-icon icon-green mb-2"><i class="fa-solid fa-valve"></i></div>
+      <div class="sage-card-title">Gas Valve</div>
+      <div class="sage-card-value" id="valveValue" style="font-size:1.3rem;"><span class="skeleton">OPEN</span></div>
+    </div>
+  </div>
+
+  <!-- Risk Score -->
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="sage-card-title mb-2">Risk Score</div>
+      <div class="d-flex justify-content-between align-items-baseline mb-2">
+        <span class="sage-card-value" id="riskScoreValue">0</span>
+        <span class="text-muted small">/ 100</span>
+      </div>
+      <div class="risk-progress"><div class="risk-progress-bar" id="riskProgressBar" style="width:0%; background:#16a34a;"></div></div>
+    </div>
+  </div>
+
+  <!-- Last updated -->
+  <div class="col-6 col-lg-3">
+    <div class="sage-card">
+      <div class="sage-card-icon icon-blue mb-2"><i class="fa-solid fa-clock"></i></div>
+      <div class="sage-card-title">Last Updated</div>
+      <div class="sage-card-value" style="font-size:1.2rem;" id="lastUpdatedValue">—</div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-4">
+    <div class="sage-card text-center">
+      <div class="sage-card-title mb-3">Safety Score</div>
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 120 120" width="150" height="150">
+          <circle class="gauge-bg" cx="60" cy="60" r="52"></circle>
+          <circle class="gauge-fg" id="gaugeFg" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"></circle>
+        </svg>
+        <div class="gauge-center">
+          <span class="num" id="safetyScoreNum">—</span>
+          <span class="lbl">Safe</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="sage-card h-100">
+      <div class="sage-card-title mb-3">AI Decision Engine — Current Assessment</div>
+      <div id="reasonsList" class="mb-3"></div>
+      <div class="sage-card-title mb-2">Recommended Action</div>
+      <div id="actionsList" class="d-flex flex-wrap gap-2"></div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

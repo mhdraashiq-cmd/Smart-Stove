@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Alert History · SAGE{% endblock %}
+{% block page_title %}Alert History{% endblock %}
+{% block page_subtitle %}Searchable log of every incident SAGE has responded to{% endblock %}
+
+{% block content %}
+
+<div class="sage-card mb-3">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-3">
+      <label class="form-label small text-muted mb-1">Date</label>
+      <input type="date" class="form-control" id="filterDate">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small text-muted mb-1">Alert Type</label>
+      <input type="text" class="form-control" id="filterType" placeholder="e.g. Gas Leak">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small text-muted mb-1">Severity</label>
+      <select class="form-select" id="filterSeverity">
+        <option value="">All</option>
+        <option value="WARNING">Warning</option>
+        <option value="EMERGENCY">Emergency</option>
+      </select>
+    </div>
+    <div class="col-md-3 d-flex gap-2">
+      <button class="btn btn-sage-primary w-100" id="applyFilters"><i class="fa-solid fa-filter me-1"></i>Filter</button>
+      <button class="btn btn-outline-secondary" id="clearFilters"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+</div>
+
+<div class="sage-card">
+  <div class="table-responsive">
+    <table class="table sage-table mb-0">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Alert Type</th>
+          <th>Temperature</th>
+          <th>Gas Reading</th>
+          <th>Motion</th>
+          <th>Flame</th>
+          <th>Risk Score</th>
+          <th>Action Taken</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="alertsTableBody">
+        <tr><td colspan="9" class="text-center text-muted py-4">Loading alerts…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/alerts.js') }}"></script>
+{% endblock %}
