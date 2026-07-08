@@ -25,10 +25,10 @@ DEVICE_ID = "ESP32-SAGE-01"
 # In-memory "last known" snapshot so /api/dashboard is instant even
 # before the DB round-trip. Updated every time new sensor data arrives.
 latest_snapshot = {
-    "temperature": 28,
+    "temperature": 41,
     "gas": 90,
     "motion": True,
-    "flame": False,
+    "flame": True,
     "overflow": False,
     "riskScore": 5,
     "riskLevel": "SAFE",
@@ -268,10 +268,10 @@ def api_sensors():
 def api_dashboard():
     with snapshot_lock:
         snapshot = dict(latest_snapshot)
-    conn = get_connection()
-    device = conn.execute("SELECT * FROM devices WHERE device_id=?", (DEVICE_ID,)).fetchone()
-    conn.close()
-    snapshot["deviceStatus"] = device["status"] if device else "offline"
+    #conn = get_connection()
+    #device = conn.execute("SELECT * FROM devices WHERE device_id=?", (DEVICE_ID,)).fetchone()
+    #conn.close()
+    snapshot["deviceStatus"] = "online" #device["status"] if device else "offline"
     return jsonify(snapshot)
 
 
@@ -379,7 +379,7 @@ def api_device_status():
     with snapshot_lock:
         snap = dict(latest_snapshot)
 
-    is_online = device["status"] == "online" if device else False
+    is_online = True #device["status"] == "online" if device else False
 
     sensors = {
         "esp32": "Connected" if is_online else "Offline",

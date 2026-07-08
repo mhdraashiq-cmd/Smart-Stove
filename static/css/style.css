@@ -110,7 +110,7 @@ body {
   height: 100%;
 }
 .sage-card-title { font-size: .82rem; text-transform: uppercase; letter-spacing: .5px; color: var(--sage-text-muted); font-weight: 700; margin-bottom: 6px; }
-.sage-card-value { font-size: 1.9rem; font-weight: 800; line-height: 1.1; }
+.sage-card-value { font-size: 1.3rem; font-weight: 700; line-height: 1.1; }
 .sage-card-icon {
   width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
 }
